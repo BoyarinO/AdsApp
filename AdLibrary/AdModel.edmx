@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ADSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Topic" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Cost" Type="float" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="Constraints" Type="int" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdClient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdID" Type="int" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdPack">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdId" Type="int" Nullable="false" />
+          <Property Name="PackId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Login" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Age" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Sex" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Bill" Type="int" />
+          <Property Name="Email" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Money" Type="float" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClientCustomer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Contact" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Login" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Site" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Info" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pack">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="State" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Answer" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Variants" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="AdId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Ad_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Ad" Type="Self.Ad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ad">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdClient_Ad">
+          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
+          <End Role="AdClient" Type="Self.AdClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdClient">
+              <PropertyRef Name="AdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdClient_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="AdClient" Type="Self.AdClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdClient">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdPack_Ad">
+          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
+          <End Role="AdPack" Type="Self.AdPack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdPack">
+              <PropertyRef Name="AdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdPack_Pack">
+          <End Role="Pack" Type="Self.Pack" Multiplicity="1" />
+          <End Role="AdPack" Type="Self.AdPack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pack">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdPack">
+              <PropertyRef Name="PackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCustomer_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientCustomer" Type="Self.ClientCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientCustomer">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCustomer_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="ClientCustomer" Type="Self.ClientCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pack_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Pack" Type="Self.Pack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pack">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_Ad">
+          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="AdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ADSDBModelStoreContainer">
+          <EntitySet Name="Ad" EntityType="Self.Ad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdClient" EntityType="Self.AdClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdPack" EntityType="Self.AdPack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientCustomer" EntityType="Self.ClientCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pack" EntityType="Self.Pack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Ad_Customer" Association="Self.FK_Ad_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Ad" EntitySet="Ad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdClient_Ad" Association="Self.FK_AdClient_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="AdClient" EntitySet="AdClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdClient_Client" Association="Self.FK_AdClient_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="AdClient" EntitySet="AdClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdPack_Ad" Association="Self.FK_AdPack_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="AdPack" EntitySet="AdPack" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdPack_Pack" Association="Self.FK_AdPack_Pack">
+            <End Role="Pack" EntitySet="Pack" />
+            <End Role="AdPack" EntitySet="AdPack" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCustomer_Client" Association="Self.FK_ClientCustomer_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientCustomer" EntitySet="ClientCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCustomer_Customer" Association="Self.FK_ClientCustomer_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="ClientCustomer" EntitySet="ClientCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pack_Client" Association="Self.FK_Pack_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Pack" EntitySet="Pack" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Ad" Association="Self.FK_Question_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ADSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Topic" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Cost" Type="Double" Nullable="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="Constraints" Type="Int32" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Ad_Customer" FromRole="Ad" ToRole="Customer" />
+          <NavigationProperty Name="AdClient" Relationship="Self.FK_AdClient_Ad" FromRole="Ad" ToRole="AdClient" />
+          <NavigationProperty Name="AdPack" Relationship="Self.FK_AdPack_Ad" FromRole="Ad" ToRole="AdPack" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_Question_Ad" FromRole="Ad" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="AdClient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdID" Type="Int32" Nullable="false" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ad" Relationship="Self.FK_AdClient_Ad" FromRole="AdClient" ToRole="Ad" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_AdClient_Client" FromRole="AdClient" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="AdPack">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdId" Type="Int32" Nullable="false" />
+          <Property Name="PackId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ad" Relationship="Self.FK_AdPack_Ad" FromRole="AdPack" ToRole="Ad" />
+          <NavigationProperty Name="Pack" Relationship="Self.FK_AdPack_Pack" FromRole="AdPack" ToRole="Pack" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Age" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Bill" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Money" Type="Double" Nullable="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AdClient" Relationship="Self.FK_AdClient_Client" FromRole="Client" ToRole="AdClient" />
+          <NavigationProperty Name="ClientCustomer" Relationship="Self.FK_ClientCustomer_Client" FromRole="Client" ToRole="ClientCustomer" />
+          <NavigationProperty Name="Pack" Relationship="Self.FK_Pack_Client" FromRole="Client" ToRole="Pack" />
+        </EntityType>
+        <EntityType Name="ClientCustomer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_ClientCustomer_Client" FromRole="ClientCustomer" ToRole="Client" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_ClientCustomer_Customer" FromRole="ClientCustomer" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Company" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Contact" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Site" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Info" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Ad" Relationship="Self.FK_Ad_Customer" FromRole="Customer" ToRole="Ad" />
+          <NavigationProperty Name="ClientCustomer" Relationship="Self.FK_ClientCustomer_Customer" FromRole="Customer" ToRole="ClientCustomer" />
+        </EntityType>
+        <EntityType Name="Pack">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AdPack" Relationship="Self.FK_AdPack_Pack" FromRole="Pack" ToRole="AdPack" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Pack_Client" FromRole="Pack" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Variants" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="AdId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ad" Relationship="Self.FK_Question_Ad" FromRole="Question" ToRole="Ad" />
+        </EntityType>
+        <Association Name="FK_Ad_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Ad" Type="Self.Ad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ad">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdClient_Ad">
+          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
+          <End Role="AdClient" Type="Self.AdClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdClient">
+              <PropertyRef Name="AdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdPack_Ad">
+          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
+          <End Role="AdPack" Type="Self.AdPack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdPack">
+              <PropertyRef Name="AdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_Ad">
+          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="AdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdClient_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="AdClient" Type="Self.AdClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdClient">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdPack_Pack">
+          <End Role="Pack" Type="Self.Pack" Multiplicity="1" />
+          <End Role="AdPack" Type="Self.AdPack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pack">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdPack">
+              <PropertyRef Name="PackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCustomer_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientCustomer" Type="Self.ClientCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientCustomer">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pack_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Pack" Type="Self.Pack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pack">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCustomer_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="ClientCustomer" Type="Self.ClientCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ADSDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ad" EntityType="Self.Ad" />
+          <EntitySet Name="AdClient" EntityType="Self.AdClient" />
+          <EntitySet Name="AdPack" EntityType="Self.AdPack" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="ClientCustomer" EntityType="Self.ClientCustomer" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Pack" EntityType="Self.Pack" />
+          <EntitySet Name="Question" EntityType="Self.Question" />
+          <AssociationSet Name="FK_Ad_Customer" Association="Self.FK_Ad_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Ad" EntitySet="Ad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdClient_Ad" Association="Self.FK_AdClient_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="AdClient" EntitySet="AdClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdPack_Ad" Association="Self.FK_AdPack_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="AdPack" EntitySet="AdPack" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Ad" Association="Self.FK_Question_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdClient_Client" Association="Self.FK_AdClient_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="AdClient" EntitySet="AdClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdPack_Pack" Association="Self.FK_AdPack_Pack">
+            <End Role="Pack" EntitySet="Pack" />
+            <End Role="AdPack" EntitySet="AdPack" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCustomer_Client" Association="Self.FK_ClientCustomer_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientCustomer" EntitySet="ClientCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pack_Client" Association="Self.FK_Pack_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Pack" EntitySet="Pack" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCustomer_Customer" Association="Self.FK_ClientCustomer_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="ClientCustomer" EntitySet="ClientCustomer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ADSDBModelStoreContainer" CdmEntityContainer="ADSDBEntities">
+          <EntitySetMapping Name="Ad">
+            <EntityTypeMapping TypeName="ADSDBModel.Ad">
+              <MappingFragment StoreEntitySet="Ad">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Topic" ColumnName="Topic" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Constraints" ColumnName="Constraints" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdClient">
+            <EntityTypeMapping TypeName="ADSDBModel.AdClient">
+              <MappingFragment StoreEntitySet="AdClient">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AdID" ColumnName="AdID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdPack">
+            <EntityTypeMapping TypeName="ADSDBModel.AdPack">
+              <MappingFragment StoreEntitySet="AdPack">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AdId" ColumnName="AdId" />
+                <ScalarProperty Name="PackId" ColumnName="PackId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="ADSDBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Bill" ColumnName="Bill" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientCustomer">
+            <EntityTypeMapping TypeName="ADSDBModel.ClientCustomer">
+              <MappingFragment StoreEntitySet="ClientCustomer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="ADSDBModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Site" ColumnName="Site" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pack">
+            <EntityTypeMapping TypeName="ADSDBModel.Pack">
+              <MappingFragment StoreEntitySet="Pack">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Question">
+            <EntityTypeMapping TypeName="ADSDBModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Variants" ColumnName="Variants" />
+                <ScalarProperty Name="AdId" ColumnName="AdId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
