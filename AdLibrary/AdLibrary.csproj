@@ -90,7 +90,6 @@
     <Compile Include="AdPack.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Client.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>

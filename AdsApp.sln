@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdsApp", "AdsApp\AdsApp.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdLibrary", "AdLibrary\AdLibrary.csproj", "{BD5BCB4C-8CF3-42DC-86DF-50FD00A277B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdTest", "AdTest\AdTest.csproj", "{1DD015B3-1BEC-4A20-A14E-2CB5B10D9251}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BD5BCB4C-8CF3-42DC-86DF-50FD00A277B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD5BCB4C-8CF3-42DC-86DF-50FD00A277B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD5BCB4C-8CF3-42DC-86DF-50FD00A277B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DD015B3-1BEC-4A20-A14E-2CB5B10D9251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DD015B3-1BEC-4A20-A14E-2CB5B10D9251}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DD015B3-1BEC-4A20-A14E-2CB5B10D9251}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DD015B3-1BEC-4A20-A14E-2CB5B10D9251}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

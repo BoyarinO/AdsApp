@@ -17,9 +17,9 @@ namespace AdLibrary
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
-            this.AdClient = new HashSet<AdClient>();
+           /* this.AdClient = new HashSet<AdClient>();
             this.ClientCustomer = new HashSet<ClientCustomer>();
-            this.Pack = new HashSet<Pack>();
+            this.Pack = new HashSet<Pack>();*/
         }
     
         public int Id { get; set; }
