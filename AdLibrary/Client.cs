@@ -17,9 +17,10 @@ namespace AdLibrary
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
-           /* this.AdClient = new HashSet<AdClient>();
+            this.AdClient = new HashSet<AdClient>();
             this.ClientCustomer = new HashSet<ClientCustomer>();
-            this.Pack = new HashSet<Pack>();*/
+            this.Pack = new HashSet<Pack>();
+            this.ClientTopic = new HashSet<ClientTopic>();
         }
     
         public int Id { get; set; }
@@ -39,5 +40,7 @@ namespace AdLibrary
         public virtual ICollection<ClientCustomer> ClientCustomer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pack> Pack { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientTopic> ClientTopic { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ADSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ADSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Ad">
           <Key>
             <PropertyRef Name="Id" />
@@ -14,8 +14,9 @@
           <Property Name="Topic" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Cost" Type="float" Nullable="false" />
           <Property Name="Views" Type="int" Nullable="false" />
-          <Property Name="Constraints" Type="int" />
+          <Property Name="ConstraintId" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="MediaFileLink" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="AdClient">
           <Key>
@@ -24,6 +25,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AdID" Type="int" Nullable="false" />
           <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AdPack">
           <Key>
@@ -32,6 +34,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AdId" Type="int" Nullable="false" />
           <Property Name="PackId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdTopic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdID" Type="int" Nullable="false" />
+          <Property Name="TopicID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -55,6 +65,25 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClientId" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClientTopic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="TopicID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Constraint">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientViews" Type="int" />
+          <Property Name="TotalViews" Type="int" Nullable="false" />
+          <Property Name="AgeMin" Type="int" />
+          <Property Name="Male" Type="nchar" MaxLength="10" />
+          <Property Name="AgeMax" Type="int" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -87,6 +116,25 @@
           <Property Name="Variants" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="AdId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Topic" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Ad_Constraint">
+          <End Role="Constraint" Type="Self.Constraint" Multiplicity="1" />
+          <End Role="Ad" Type="Self.Ad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constraint">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ad">
+              <PropertyRef Name="ConstraintId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Ad_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Ad" Type="Self.Ad" Multiplicity="*" />
@@ -147,6 +195,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AdTopic_Ad">
+          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
+          <End Role="AdTopic" Type="Self.AdTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdTopic">
+              <PropertyRef Name="AdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdTopic_Topic">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="1" />
+          <End Role="AdTopic" Type="Self.AdTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdTopic">
+              <PropertyRef Name="TopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ClientCustomer_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="ClientCustomer" Type="Self.ClientCustomer" Multiplicity="*" />
@@ -168,6 +240,30 @@
             </Principal>
             <Dependent Role="ClientCustomer">
               <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientTopic_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientTopic" Type="Self.ClientTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientTopic">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientTopic_Topic">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="1" />
+          <End Role="ClientTopic" Type="Self.ClientTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientTopic">
+              <PropertyRef Name="TopicID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -199,11 +295,19 @@
           <EntitySet Name="Ad" EntityType="Self.Ad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdClient" EntityType="Self.AdClient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdPack" EntityType="Self.AdPack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdTopic" EntityType="Self.AdTopic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientCustomer" EntityType="Self.ClientCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientTopic" EntityType="Self.ClientTopic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Constraint" EntityType="Self.Constraint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pack" EntityType="Self.Pack" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Topic" EntityType="Self.Topic" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Ad_Constraint" Association="Self.FK_Ad_Constraint">
+            <End Role="Constraint" EntitySet="Constraint" />
+            <End Role="Ad" EntitySet="Ad" />
+          </AssociationSet>
           <AssociationSet Name="FK_Ad_Customer" Association="Self.FK_Ad_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Ad" EntitySet="Ad" />
@@ -224,6 +328,14 @@
             <End Role="Pack" EntitySet="Pack" />
             <End Role="AdPack" EntitySet="AdPack" />
           </AssociationSet>
+          <AssociationSet Name="FK_AdTopic_Ad" Association="Self.FK_AdTopic_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="AdTopic" EntitySet="AdTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdTopic_Topic" Association="Self.FK_AdTopic_Topic">
+            <End Role="Topic" EntitySet="Topic" />
+            <End Role="AdTopic" EntitySet="AdTopic" />
+          </AssociationSet>
           <AssociationSet Name="FK_ClientCustomer_Client" Association="Self.FK_ClientCustomer_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="ClientCustomer" EntitySet="ClientCustomer" />
@@ -231,6 +343,14 @@
           <AssociationSet Name="FK_ClientCustomer_Customer" Association="Self.FK_ClientCustomer_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="ClientCustomer" EntitySet="ClientCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientTopic_Client" Association="Self.FK_ClientTopic_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientTopic" EntitySet="ClientTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientTopic_Topic" Association="Self.FK_ClientTopic_Topic">
+            <End Role="Topic" EntitySet="Topic" />
+            <End Role="ClientTopic" EntitySet="ClientTopic" />
           </AssociationSet>
           <AssociationSet Name="FK_Pack_Client" Association="Self.FK_Pack_Client">
             <End Role="Client" EntitySet="Client" />
@@ -241,8 +361,7 @@
             <End Role="Question" EntitySet="Question" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ADSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -255,12 +374,15 @@
           <Property Name="Topic" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Cost" Type="Double" Nullable="false" />
           <Property Name="Views" Type="Int32" Nullable="false" />
-          <Property Name="Constraints" Type="Int32" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Ad_Customer" FromRole="Ad" ToRole="Customer" />
           <NavigationProperty Name="AdClient" Relationship="Self.FK_AdClient_Ad" FromRole="Ad" ToRole="AdClient" />
           <NavigationProperty Name="AdPack" Relationship="Self.FK_AdPack_Ad" FromRole="Ad" ToRole="AdPack" />
           <NavigationProperty Name="Question" Relationship="Self.FK_Question_Ad" FromRole="Ad" ToRole="Question" />
+          <Property Name="ConstraintId" Type="Int32" Nullable="false" />
+          <Property Name="MediaFileLink" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Constraint" Relationship="ADSDBModel.FK_Ad_Constraint" FromRole="Ad" ToRole="Constraint" />
+          <NavigationProperty Name="AdTopic" Relationship="ADSDBModel.FK_AdTopic_Ad" FromRole="Ad" ToRole="AdTopic" />
         </EntityType>
         <EntityType Name="AdClient">
           <Key>
@@ -271,6 +393,7 @@
           <Property Name="ClientID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Ad" Relationship="Self.FK_AdClient_Ad" FromRole="AdClient" ToRole="Ad" />
           <NavigationProperty Name="Client" Relationship="Self.FK_AdClient_Client" FromRole="AdClient" ToRole="Client" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="AdPack">
           <Key>
@@ -299,6 +422,7 @@
           <NavigationProperty Name="AdClient" Relationship="Self.FK_AdClient_Client" FromRole="Client" ToRole="AdClient" />
           <NavigationProperty Name="ClientCustomer" Relationship="Self.FK_ClientCustomer_Client" FromRole="Client" ToRole="ClientCustomer" />
           <NavigationProperty Name="Pack" Relationship="Self.FK_Pack_Client" FromRole="Client" ToRole="Pack" />
+          <NavigationProperty Name="ClientTopic" Relationship="ADSDBModel.FK_ClientTopic_Client" FromRole="Client" ToRole="ClientTopic" />
         </EntityType>
         <EntityType Name="ClientCustomer">
           <Key>
@@ -499,7 +623,132 @@
             <End Role="Customer" EntitySet="Customer" />
             <End Role="ClientCustomer" EntitySet="ClientCustomer" />
           </AssociationSet>
+          <EntitySet Name="AdTopic" EntityType="ADSDBModel.AdTopic" />
+          <EntitySet Name="ClientTopic" EntityType="ADSDBModel.ClientTopic" />
+          <EntitySet Name="Constraint" EntityType="ADSDBModel.Constraint" />
+          <EntitySet Name="Topic" EntityType="ADSDBModel.Topic" />
+          <AssociationSet Name="FK_Ad_Constraint" Association="ADSDBModel.FK_Ad_Constraint">
+            <End Role="Constraint" EntitySet="Constraint" />
+            <End Role="Ad" EntitySet="Ad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdTopic_Ad" Association="ADSDBModel.FK_AdTopic_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="AdTopic" EntitySet="AdTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdTopic_Topic" Association="ADSDBModel.FK_AdTopic_Topic">
+            <End Role="Topic" EntitySet="Topic" />
+            <End Role="AdTopic" EntitySet="AdTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientTopic_Client" Association="ADSDBModel.FK_ClientTopic_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientTopic" EntitySet="ClientTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientTopic_Topic" Association="ADSDBModel.FK_ClientTopic_Topic">
+            <End Role="Topic" EntitySet="Topic" />
+            <End Role="ClientTopic" EntitySet="ClientTopic" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AdTopic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdID" Type="Int32" Nullable="false" />
+          <Property Name="TopicID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ad" Relationship="ADSDBModel.FK_AdTopic_Ad" FromRole="AdTopic" ToRole="Ad" />
+          <NavigationProperty Name="Topic" Relationship="ADSDBModel.FK_AdTopic_Topic" FromRole="AdTopic" ToRole="Topic" />
+        </EntityType>
+        <EntityType Name="ClientTopic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="TopicID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="ADSDBModel.FK_ClientTopic_Client" FromRole="ClientTopic" ToRole="Client" />
+          <NavigationProperty Name="Topic" Relationship="ADSDBModel.FK_ClientTopic_Topic" FromRole="ClientTopic" ToRole="Topic" />
+        </EntityType>
+        <EntityType Name="Constraint">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientViews" Type="Int32" />
+          <Property Name="TotalViews" Type="Int32" Nullable="false" />
+          <Property Name="AgeMin" Type="Int32" />
+          <Property Name="Male" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AgeMax" Type="Int32" />
+          <NavigationProperty Name="Ad" Relationship="ADSDBModel.FK_Ad_Constraint" FromRole="Constraint" ToRole="Ad" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Topic1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdTopic" Relationship="ADSDBModel.FK_AdTopic_Topic" FromRole="Topic" ToRole="AdTopic" />
+          <NavigationProperty Name="ClientTopic" Relationship="ADSDBModel.FK_ClientTopic_Topic" FromRole="Topic" ToRole="ClientTopic" />
+        </EntityType>
+        <Association Name="FK_Ad_Constraint">
+          <End Type="ADSDBModel.Constraint" Role="Constraint" Multiplicity="1" />
+          <End Type="ADSDBModel.Ad" Role="Ad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constraint">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ad">
+              <PropertyRef Name="ConstraintId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdTopic_Ad">
+          <End Type="ADSDBModel.Ad" Role="Ad" Multiplicity="1" />
+          <End Type="ADSDBModel.AdTopic" Role="AdTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdTopic">
+              <PropertyRef Name="AdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdTopic_Topic">
+          <End Type="ADSDBModel.Topic" Role="Topic" Multiplicity="1" />
+          <End Type="ADSDBModel.AdTopic" Role="AdTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdTopic">
+              <PropertyRef Name="TopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientTopic_Client">
+          <End Type="ADSDBModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="ADSDBModel.ClientTopic" Role="ClientTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientTopic">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientTopic_Topic">
+          <End Type="ADSDBModel.Topic" Role="Topic" Multiplicity="1" />
+          <End Type="ADSDBModel.ClientTopic" Role="ClientTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientTopic">
+              <PropertyRef Name="TopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -509,12 +758,13 @@
           <EntitySetMapping Name="Ad">
             <EntityTypeMapping TypeName="ADSDBModel.Ad">
               <MappingFragment StoreEntitySet="Ad">
+                <ScalarProperty Name="MediaFileLink" ColumnName="MediaFileLink" />
+                <ScalarProperty Name="ConstraintId" ColumnName="ConstraintId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Topic" ColumnName="Topic" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="Views" ColumnName="Views" />
-                <ScalarProperty Name="Constraints" ColumnName="Constraints" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -522,6 +772,7 @@
           <EntitySetMapping Name="AdClient">
             <EntityTypeMapping TypeName="ADSDBModel.AdClient">
               <MappingFragment StoreEntitySet="AdClient">
+                <ScalarProperty Name="Views" ColumnName="Views" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="AdID" ColumnName="AdID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
@@ -593,6 +844,44 @@
                 <ScalarProperty Name="Answer" ColumnName="Answer" />
                 <ScalarProperty Name="Variants" ColumnName="Variants" />
                 <ScalarProperty Name="AdId" ColumnName="AdId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdTopic">
+            <EntityTypeMapping TypeName="ADSDBModel.AdTopic">
+              <MappingFragment StoreEntitySet="AdTopic">
+                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+                <ScalarProperty Name="AdID" ColumnName="AdID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientTopic">
+            <EntityTypeMapping TypeName="ADSDBModel.ClientTopic">
+              <MappingFragment StoreEntitySet="ClientTopic">
+                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Constraint">
+            <EntityTypeMapping TypeName="ADSDBModel.Constraint">
+              <MappingFragment StoreEntitySet="Constraint">
+                <ScalarProperty Name="AgeMax" ColumnName="AgeMax" />
+                <ScalarProperty Name="Male" ColumnName="Male" />
+                <ScalarProperty Name="AgeMin" ColumnName="AgeMin" />
+                <ScalarProperty Name="TotalViews" ColumnName="TotalViews" />
+                <ScalarProperty Name="ClientViews" ColumnName="ClientViews" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Topic">
+            <EntityTypeMapping TypeName="ADSDBModel.Topic">
+              <MappingFragment StoreEntitySet="Topic">
+                <ScalarProperty Name="Topic1" ColumnName="Topic" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

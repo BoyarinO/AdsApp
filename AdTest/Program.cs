@@ -15,8 +15,8 @@ namespace AdTest
             context.Client.Add(
                 new Client
                 {
-                    Id=1,
-                    Name = "Vasya",
+                    
+                    Name = "Igorek",
                     Password="123321",
                     Login="vasek",
                     Age="18",

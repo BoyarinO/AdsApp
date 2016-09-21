@@ -90,10 +90,19 @@
     <Compile Include="AdPack.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AdTopic.cs">
+      <DependentUpon>AdModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Client.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ClientCustomer.cs">
+      <DependentUpon>AdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClientTopic.cs">
+      <DependentUpon>AdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Constraint.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Customer.cs">
@@ -104,6 +113,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs">
+      <DependentUpon>AdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Topic.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

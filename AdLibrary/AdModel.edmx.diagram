@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1a5689ed0a2e48afb2e55a5dfc7644ae" Name="Diagram1">
-        <EntityTypeShape EntityType="ADSDBModel.Ad" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.AdClient" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.AdPack" Width="1.5" PointX="2.875" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.Client" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.ClientCustomer" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.Customer" Width="1.5" PointX="7.125" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.Pack" Width="1.5" PointX="5.375" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.Question" Width="1.5" PointX="6.625" PointY="7.75" IsExpanded="true" />
+      <Diagram DiagramId="1a5689ed0a2e48afb2e55a5dfc7644ae" Name="Diagram1" ZoomLevel="69">
+        <EntityTypeShape EntityType="ADSDBModel.Ad" Width="1.5" PointX="2.875" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.AdClient" Width="1.5" PointX="0.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.AdPack" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Client" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.ClientCustomer" Width="1.5" PointX="7" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Customer" Width="1.5" PointX="7" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Pack" Width="1.5" PointX="3.125" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Question" Width="1.5" PointX="12.25" PointY="0.5" IsExpanded="true" />
         <AssociationConnector Association="ADSDBModel.FK_Ad_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="ADSDBModel.FK_AdClient_Ad" ManuallyRouted="false" />
         <AssociationConnector Association="ADSDBModel.FK_AdPack_Ad" ManuallyRouted="false" />
@@ -22,6 +22,15 @@
         <AssociationConnector Association="ADSDBModel.FK_ClientCustomer_Client" ManuallyRouted="false" />
         <AssociationConnector Association="ADSDBModel.FK_Pack_Client" ManuallyRouted="false" />
         <AssociationConnector Association="ADSDBModel.FK_ClientCustomer_Customer" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ADSDBModel.AdTopic" Width="1.5" PointX="9" PointY="5.125" />
+        <EntityTypeShape EntityType="ADSDBModel.ClientTopic" Width="1.5" PointX="9" PointY="0.5" />
+        <EntityTypeShape EntityType="ADSDBModel.Constraint" Width="1.5" PointX="10.625" PointY="0.5" />
+        <EntityTypeShape EntityType="ADSDBModel.Topic" Width="1.5" PointX="9" PointY="2.875" />
+        <AssociationConnector Association="ADSDBModel.FK_Ad_Constraint" />
+        <AssociationConnector Association="ADSDBModel.FK_AdTopic_Ad" />
+        <AssociationConnector Association="ADSDBModel.FK_AdTopic_Topic" />
+        <AssociationConnector Association="ADSDBModel.FK_ClientTopic_Client" />
+        <AssociationConnector Association="ADSDBModel.FK_ClientTopic_Topic" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

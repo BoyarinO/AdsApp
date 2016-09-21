@@ -33,5 +33,9 @@ namespace AdLibrary
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Pack> Pack { get; set; }
         public virtual DbSet<Question> Question { get; set; }
+        public virtual DbSet<AdTopic> AdTopic { get; set; }
+        public virtual DbSet<ClientTopic> ClientTopic { get; set; }
+        public virtual DbSet<Constraint> Constraint { get; set; }
+        public virtual DbSet<Topic> Topic { get; set; }
     }
 }

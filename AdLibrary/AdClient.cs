@@ -17,6 +17,7 @@ namespace AdLibrary
         public int Id { get; set; }
         public int AdID { get; set; }
         public int ClientID { get; set; }
+        public int Views { get; set; }
     
         public virtual Ad Ad { get; set; }
         public virtual Client Client { get; set; }
