@@ -26,16 +26,21 @@ namespace AdLibrary
         }
     
         public virtual DbSet<Ad> Ad { get; set; }
-        public virtual DbSet<AdClient> AdClient { get; set; }
         public virtual DbSet<AdPack> AdPack { get; set; }
-        public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<ClientCustomer> ClientCustomer { get; set; }
-        public virtual DbSet<Customer> Customer { get; set; }
-        public virtual DbSet<Pack> Pack { get; set; }
-        public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<AdTopic> AdTopic { get; set; }
-        public virtual DbSet<ClientTopic> ClientTopic { get; set; }
+        public virtual DbSet<AdUser> AdUser { get; set; }
+        public virtual DbSet<Client> Client { get; set; }
+        public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Constraint> Constraint { get; set; }
+        public virtual DbSet<Deposit> Deposit { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<Pack> Pack { get; set; }
+        public virtual DbSet<PaymentInfo> PaymentInfo { get; set; }
+        public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<Topic> Topic { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserCompany> UserCompany { get; set; }
+        public virtual DbSet<UserTopic> UserTopic { get; set; }
+        public virtual DbSet<Widthraw> Widthraw { get; set; }
     }
 }

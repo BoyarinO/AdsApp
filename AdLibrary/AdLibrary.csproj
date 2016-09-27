@@ -69,9 +69,6 @@
     <Compile Include="Ad.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="AdClient.cs">
-      <DependentUpon>AdModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="AdModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,22 +90,28 @@
     <Compile Include="AdTopic.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AdUser.cs">
+      <DependentUpon>AdModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Client.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ClientCustomer.cs">
-      <DependentUpon>AdModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ClientTopic.cs">
+    <Compile Include="Company.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Constraint.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Customer.cs">
+    <Compile Include="Deposit.cs">
+      <DependentUpon>AdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Pack.cs">
+      <DependentUpon>AdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentInfo.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,6 +119,18 @@
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Topic.cs">
+      <DependentUpon>AdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>AdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserCompany.cs">
+      <DependentUpon>AdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserTopic.cs">
+      <DependentUpon>AdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Widthraw.cs">
       <DependentUpon>AdModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -143,8 +158,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AdModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="AdModel.edmx.diagram">
       <DependentUpon>AdModel.edmx</DependentUpon>
     </None>

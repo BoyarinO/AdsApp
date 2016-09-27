@@ -17,10 +17,10 @@ namespace AdLibrary
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ad()
         {
-            this.AdClient = new HashSet<AdClient>();
             this.AdPack = new HashSet<AdPack>();
-            this.Question = new HashSet<Question>();
             this.AdTopic = new HashSet<AdTopic>();
+            this.AdUser = new HashSet<AdUser>();
+            this.Question = new HashSet<Question>();
         }
     
         public int Id { get; set; }
@@ -28,19 +28,20 @@ namespace AdLibrary
         public string Topic { get; set; }
         public double Cost { get; set; }
         public int Views { get; set; }
-        public int CustomerId { get; set; }
         public int ConstraintId { get; set; }
+        public int OrderId { get; set; }
         public string MediaFileLink { get; set; }
+        public string WebLink { get; set; }
     
-        public virtual Customer Customer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AdClient> AdClient { get; set; }
+        public virtual Constraint Constraint { get; set; }
+        public virtual Order Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdPack> AdPack { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Question> Question { get; set; }
-        public virtual Constraint Constraint { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdTopic> AdTopic { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AdUser> AdUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Question> Question { get; set; }
     }
 }

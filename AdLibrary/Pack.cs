@@ -22,10 +22,10 @@ namespace AdLibrary
     
         public int Id { get; set; }
         public string State { get; set; }
-        public int ClientId { get; set; }
+        public int UserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdPack> AdPack { get; set; }
-        public virtual Client Client { get; set; }
+        public virtual User User { get; set; }
     }
 }

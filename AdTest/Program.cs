@@ -12,23 +12,21 @@ namespace AdTest
         static void Main(string[] args)
         {
             ADSDBEntities context = new ADSDBEntities();
-            context.Client.Add(
-                new Client
-                {
-                    
-                    Name = "Igorek",
-                    Password="123321",
-                    Login="vasek",
-                    Age="18",
-                    Sex="Male",
-                    Bill=13313,
-                    Email="vasya@mail",
-                    Money=0,
-                    Views=0
            
+                context.Constraint.Add(
+                    new Constraint
+                    {
+
+                   
+                     TotalViews=10000,
+                     AgeMin=20
+                    
 
 
-    });
+
+
+                    });
+            
             context.SaveChanges();
             Console.WriteLine("Done");
 

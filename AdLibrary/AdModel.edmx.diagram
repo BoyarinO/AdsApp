@@ -4,33 +4,46 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1a5689ed0a2e48afb2e55a5dfc7644ae" Name="Diagram1" ZoomLevel="69">
-        <EntityTypeShape EntityType="ADSDBModel.Ad" Width="1.5" PointX="2.875" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.AdClient" Width="1.5" PointX="0.5" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.AdPack" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.Client" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.ClientCustomer" Width="1.5" PointX="7" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.Customer" Width="1.5" PointX="7" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.Pack" Width="1.5" PointX="3.125" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADSDBModel.Question" Width="1.5" PointX="12.25" PointY="0.5" IsExpanded="true" />
-        <AssociationConnector Association="ADSDBModel.FK_Ad_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="ADSDBModel.FK_AdClient_Ad" ManuallyRouted="false" />
+      <Diagram DiagramId="5f1300d524254c128bd3506c7e67bc71" Name="Diagram1" ZoomLevel="29">
+        <EntityTypeShape EntityType="ADSDBModel.Ad" Width="1.5" PointX="7.5" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.AdPack" Width="1.5" PointX="9.75" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.AdTopic" Width="1.5" PointX="9.75" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.AdUser" Width="1.5" PointX="9.75" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Client" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Company" Width="1.5" PointX="3" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Constraint" Width="1.5" PointX="5.25" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Deposit" Width="1.5" PointX="5.25" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Order" Width="1.5" PointX="5.25" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Pack" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.PaymentInfo" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Question" Width="1.5" PointX="9.75" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Topic" Width="1.5" PointX="6" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.User" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.UserCompany" Width="1.5" PointX="5.25" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.UserTopic" Width="1.5" PointX="8.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADSDBModel.Widthraw" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="ADSDBModel.FK_Ad_Constraint" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_Ad_Order" ManuallyRouted="false" />
         <AssociationConnector Association="ADSDBModel.FK_AdPack_Ad" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_AdTopic_Ad" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_AdUser_Ad" ManuallyRouted="false" />
         <AssociationConnector Association="ADSDBModel.FK_Question_Ad" ManuallyRouted="false" />
-        <AssociationConnector Association="ADSDBModel.FK_AdClient_Client" ManuallyRouted="false" />
         <AssociationConnector Association="ADSDBModel.FK_AdPack_Pack" ManuallyRouted="false" />
-        <AssociationConnector Association="ADSDBModel.FK_ClientCustomer_Client" ManuallyRouted="false" />
-        <AssociationConnector Association="ADSDBModel.FK_Pack_Client" ManuallyRouted="false" />
-        <AssociationConnector Association="ADSDBModel.FK_ClientCustomer_Customer" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ADSDBModel.AdTopic" Width="1.5" PointX="9" PointY="5.125" />
-        <EntityTypeShape EntityType="ADSDBModel.ClientTopic" Width="1.5" PointX="9" PointY="0.5" />
-        <EntityTypeShape EntityType="ADSDBModel.Constraint" Width="1.5" PointX="10.625" PointY="0.5" />
-        <EntityTypeShape EntityType="ADSDBModel.Topic" Width="1.5" PointX="9" PointY="2.875" />
-        <AssociationConnector Association="ADSDBModel.FK_Ad_Constraint" />
-        <AssociationConnector Association="ADSDBModel.FK_AdTopic_Ad" />
-        <AssociationConnector Association="ADSDBModel.FK_AdTopic_Topic" />
-        <AssociationConnector Association="ADSDBModel.FK_ClientTopic_Client" />
-        <AssociationConnector Association="ADSDBModel.FK_ClientTopic_Topic" />
+        <AssociationConnector Association="ADSDBModel.FK_AdTopic_Topic" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_Aduser_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_Company_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_PaymentInfo_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_User_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_Deposit_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_Order_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_UserCompany_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_Pack_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_UserTopic_Topic" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_User_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_UserCompany_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ADSDBModel.FK_UserTopic_User" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="ADSDBModel.FK_Widthraw_User" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

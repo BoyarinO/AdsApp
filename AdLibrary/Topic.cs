@@ -18,7 +18,7 @@ namespace AdLibrary
         public Topic()
         {
             this.AdTopic = new HashSet<AdTopic>();
-            this.ClientTopic = new HashSet<ClientTopic>();
+            this.UserTopic = new HashSet<UserTopic>();
         }
     
         public int Id { get; set; }
@@ -27,6 +27,6 @@ namespace AdLibrary
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdTopic> AdTopic { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ClientTopic> ClientTopic { get; set; }
+        public virtual ICollection<UserTopic> UserTopic { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace AdLibrary
         public Nullable<int> ClientViews { get; set; }
         public int TotalViews { get; set; }
         public Nullable<int> AgeMin { get; set; }
-        public string Male { get; set; }
+        public string Sex { get; set; }
         public Nullable<int> AgeMax { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

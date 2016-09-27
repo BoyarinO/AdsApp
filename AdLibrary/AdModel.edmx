@@ -15,17 +15,9 @@
           <Property Name="Cost" Type="float" Nullable="false" />
           <Property Name="Views" Type="int" Nullable="false" />
           <Property Name="ConstraintId" Type="int" Nullable="false" />
-          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="MediaFileLink" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AdClient">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AdID" Type="int" Nullable="false" />
-          <Property Name="ClientID" Type="int" Nullable="false" />
-          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="WebLink" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="AdPack">
           <Key>
@@ -43,36 +35,35 @@
           <Property Name="AdID" Type="int" Nullable="false" />
           <Property Name="TopicID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="AdUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Login" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Age" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Sex" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Bill" Type="int" />
-          <Property Name="Email" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Money" Type="float" Nullable="false" />
-          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contact" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <EntityType Name="ClientCustomer">
+        <EntityType Name="Company">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Site" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Info" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ClientId" Type="int" Nullable="false" />
-          <Property Name="CustomerId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ClientTopic">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClientID" Type="int" Nullable="false" />
-          <Property Name="TopicID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Constraint">
           <Key>
@@ -82,21 +73,24 @@
           <Property Name="ClientViews" Type="int" />
           <Property Name="TotalViews" Type="int" Nullable="false" />
           <Property Name="AgeMin" Type="int" />
-          <Property Name="Male" Type="nchar" MaxLength="10" />
+          <Property Name="Sex" Type="nchar" MaxLength="10" />
           <Property Name="AgeMax" Type="int" />
         </EntityType>
-        <EntityType Name="Customer">
+        <EntityType Name="Deposit">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Company" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Contact" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Login" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Email" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Site" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Info" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Pack">
           <Key>
@@ -104,6 +98,14 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="State" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CardNumber" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="ClientId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Question">
@@ -111,9 +113,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Text" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Answer" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Variants" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Variants" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AdId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Topic">
@@ -122,6 +124,44 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Topic" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Sex" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Money" Type="float" Nullable="false" />
+          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="TotalMoney" Type="float" Nullable="false" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserCompany">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserTopic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="TopicID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Widthraw">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="float" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Ad_Constraint">
           <End Role="Constraint" Type="Self.Constraint" Multiplicity="1" />
@@ -135,39 +175,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Ad_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+        <Association Name="FK_Ad_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="Ad" Type="Self.Ad" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
+            <Principal Role="Order">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Ad">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AdClient_Ad">
-          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
-          <End Role="AdClient" Type="Self.AdClient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ad">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AdClient">
-              <PropertyRef Name="AdID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AdClient_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="AdClient" Type="Self.AdClient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AdClient">
-              <PropertyRef Name="ClientID" />
+              <PropertyRef Name="OrderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -219,62 +235,86 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientCustomer_Client">
+        <Association Name="FK_AdUser_Ad">
+          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
+          <End Role="AdUser" Type="Self.AdUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdUser">
+              <PropertyRef Name="AdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aduser_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="AdUser" Type="Self.AdUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdUser">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="ClientCustomer" Type="Self.ClientCustomer" Multiplicity="*" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ClientCustomer">
+            <Dependent Role="Company">
               <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientCustomer_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="ClientCustomer" Type="Self.ClientCustomer" Multiplicity="*" />
+        <Association Name="FK_Deposit_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Deposit" Type="Self.Deposit" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
+            <Principal Role="Company">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ClientCustomer">
-              <PropertyRef Name="CustomerId" />
+            <Dependent Role="Deposit">
+              <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientTopic_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="ClientTopic" Type="Self.ClientTopic" Multiplicity="*" />
+        <Association Name="FK_Order_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Client">
+            <Principal Role="Company">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ClientTopic">
-              <PropertyRef Name="ClientID" />
+            <Dependent Role="Order">
+              <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientTopic_Topic">
-          <End Role="Topic" Type="Self.Topic" Multiplicity="1" />
-          <End Role="ClientTopic" Type="Self.ClientTopic" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Topic">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClientTopic">
-              <PropertyRef Name="TopicID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pack_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+        <Association Name="FK_Pack_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Pack" Type="Self.Pack" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Client">
+            <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Pack">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentInfo_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="PaymentInfo" Type="Self.PaymentInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PaymentInfo">
               <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
@@ -291,34 +331,115 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User1" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCompany_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="UserCompany" Type="Self.UserCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserCompany">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCompany_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserCompany" Type="Self.UserCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserCompany">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTopic_Topic">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="1" />
+          <End Role="UserTopic" Type="Self.UserTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserTopic">
+              <PropertyRef Name="TopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTopic_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserTopic" Type="Self.UserTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserTopic">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Widthraw_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Widthraw" Type="Self.Widthraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Widthraw">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ADSDBModelStoreContainer">
           <EntitySet Name="Ad" EntityType="Self.Ad" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AdClient" EntityType="Self.AdClient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdPack" EntityType="Self.AdPack" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdTopic" EntityType="Self.AdTopic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdUser" EntityType="Self.AdUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ClientCustomer" EntityType="Self.ClientCustomer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ClientTopic" EntityType="Self.ClientTopic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Constraint" EntityType="Self.Constraint" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deposit" EntityType="Self.Deposit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pack" EntityType="Self.Pack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentInfo" EntityType="Self.PaymentInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Topic" EntityType="Self.Topic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserCompany" EntityType="Self.UserCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTopic" EntityType="Self.UserTopic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Widthraw" EntityType="Self.Widthraw" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Ad_Constraint" Association="Self.FK_Ad_Constraint">
             <End Role="Constraint" EntitySet="Constraint" />
             <End Role="Ad" EntitySet="Ad" />
           </AssociationSet>
-          <AssociationSet Name="FK_Ad_Customer" Association="Self.FK_Ad_Customer">
-            <End Role="Customer" EntitySet="Customer" />
+          <AssociationSet Name="FK_Ad_Order" Association="Self.FK_Ad_Order">
+            <End Role="Order" EntitySet="Order" />
             <End Role="Ad" EntitySet="Ad" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AdClient_Ad" Association="Self.FK_AdClient_Ad">
-            <End Role="Ad" EntitySet="Ad" />
-            <End Role="AdClient" EntitySet="AdClient" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AdClient_Client" Association="Self.FK_AdClient_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="AdClient" EntitySet="AdClient" />
           </AssociationSet>
           <AssociationSet Name="FK_AdPack_Ad" Association="Self.FK_AdPack_Ad">
             <End Role="Ad" EntitySet="Ad" />
@@ -336,29 +457,65 @@
             <End Role="Topic" EntitySet="Topic" />
             <End Role="AdTopic" EntitySet="AdTopic" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientCustomer_Client" Association="Self.FK_ClientCustomer_Client">
+          <AssociationSet Name="FK_AdUser_Ad" Association="Self.FK_AdUser_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="AdUser" EntitySet="AdUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aduser_User" Association="Self.FK_Aduser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="AdUser" EntitySet="AdUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Client" Association="Self.FK_Company_Client">
             <End Role="Client" EntitySet="Client" />
-            <End Role="ClientCustomer" EntitySet="ClientCustomer" />
+            <End Role="Company" EntitySet="Company" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientCustomer_Customer" Association="Self.FK_ClientCustomer_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="ClientCustomer" EntitySet="ClientCustomer" />
+          <AssociationSet Name="FK_Deposit_Company" Association="Self.FK_Deposit_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Deposit" EntitySet="Deposit" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientTopic_Client" Association="Self.FK_ClientTopic_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="ClientTopic" EntitySet="ClientTopic" />
+          <AssociationSet Name="FK_Order_Company" Association="Self.FK_Order_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientTopic_Topic" Association="Self.FK_ClientTopic_Topic">
-            <End Role="Topic" EntitySet="Topic" />
-            <End Role="ClientTopic" EntitySet="ClientTopic" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pack_Client" Association="Self.FK_Pack_Client">
-            <End Role="Client" EntitySet="Client" />
+          <AssociationSet Name="FK_Pack_User" Association="Self.FK_Pack_User">
+            <End Role="User" EntitySet="User" />
             <End Role="Pack" EntitySet="Pack" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentInfo_Client" Association="Self.FK_PaymentInfo_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="PaymentInfo" EntitySet="PaymentInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_Question_Ad" Association="Self.FK_Question_Ad">
             <End Role="Ad" EntitySet="Ad" />
             <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Client" Association="Self.FK_User_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_User" Association="Self.FK_User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="User1" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCompany_Company" Association="Self.FK_UserCompany_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="UserCompany" EntitySet="UserCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCompany_User" Association="Self.FK_UserCompany_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserCompany" EntitySet="UserCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTopic_Topic" Association="Self.FK_UserTopic_Topic">
+            <End Role="Topic" EntitySet="Topic" />
+            <End Role="UserTopic" EntitySet="UserTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTopic_User" Association="Self.FK_UserTopic_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserTopic" EntitySet="UserTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Widthraw_User" Association="Self.FK_Widthraw_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Widthraw" EntitySet="Widthraw" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -374,26 +531,16 @@
           <Property Name="Topic" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Cost" Type="Double" Nullable="false" />
           <Property Name="Views" Type="Int32" Nullable="false" />
-          <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Ad_Customer" FromRole="Ad" ToRole="Customer" />
-          <NavigationProperty Name="AdClient" Relationship="Self.FK_AdClient_Ad" FromRole="Ad" ToRole="AdClient" />
-          <NavigationProperty Name="AdPack" Relationship="Self.FK_AdPack_Ad" FromRole="Ad" ToRole="AdPack" />
-          <NavigationProperty Name="Question" Relationship="Self.FK_Question_Ad" FromRole="Ad" ToRole="Question" />
           <Property Name="ConstraintId" Type="Int32" Nullable="false" />
-          <Property Name="MediaFileLink" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Constraint" Relationship="ADSDBModel.FK_Ad_Constraint" FromRole="Ad" ToRole="Constraint" />
-          <NavigationProperty Name="AdTopic" Relationship="ADSDBModel.FK_AdTopic_Ad" FromRole="Ad" ToRole="AdTopic" />
-        </EntityType>
-        <EntityType Name="AdClient">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AdID" Type="Int32" Nullable="false" />
-          <Property Name="ClientID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Ad" Relationship="Self.FK_AdClient_Ad" FromRole="AdClient" ToRole="Ad" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_AdClient_Client" FromRole="AdClient" ToRole="Client" />
-          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="MediaFileLink" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WebLink" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Constraint" Relationship="Self.FK_Ad_Constraint" FromRole="Ad" ToRole="Constraint" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Ad_Order" FromRole="Ad" ToRole="Order" />
+          <NavigationProperty Name="AdPack" Relationship="Self.FK_AdPack_Ad" FromRole="Ad" ToRole="AdPack" />
+          <NavigationProperty Name="AdTopic" Relationship="Self.FK_AdTopic_Ad" FromRole="Ad" ToRole="AdTopic" />
+          <NavigationProperty Name="AdUser" Relationship="Self.FK_AdUser_Ad" FromRole="Ad" ToRole="AdUser" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_Question_Ad" FromRole="Ad" ToRole="Question" />
         </EntityType>
         <EntityType Name="AdPack">
           <Key>
@@ -405,49 +552,85 @@
           <NavigationProperty Name="Ad" Relationship="Self.FK_AdPack_Ad" FromRole="AdPack" ToRole="Ad" />
           <NavigationProperty Name="Pack" Relationship="Self.FK_AdPack_Pack" FromRole="AdPack" ToRole="Pack" />
         </EntityType>
+        <EntityType Name="AdTopic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdID" Type="Int32" Nullable="false" />
+          <Property Name="TopicID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ad" Relationship="Self.FK_AdTopic_Ad" FromRole="AdTopic" ToRole="Ad" />
+          <NavigationProperty Name="Topic" Relationship="Self.FK_AdTopic_Topic" FromRole="AdTopic" ToRole="Topic" />
+        </EntityType>
+        <EntityType Name="AdUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ad" Relationship="Self.FK_AdUser_Ad" FromRole="AdUser" ToRole="Ad" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Aduser_User" FromRole="AdUser" ToRole="User" />
+        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Login" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Age" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Bill" Type="Int32" />
-          <Property Name="Email" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Money" Type="Double" Nullable="false" />
-          <Property Name="Views" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AdClient" Relationship="Self.FK_AdClient_Client" FromRole="Client" ToRole="AdClient" />
-          <NavigationProperty Name="ClientCustomer" Relationship="Self.FK_ClientCustomer_Client" FromRole="Client" ToRole="ClientCustomer" />
-          <NavigationProperty Name="Pack" Relationship="Self.FK_Pack_Client" FromRole="Client" ToRole="Pack" />
-          <NavigationProperty Name="ClientTopic" Relationship="ADSDBModel.FK_ClientTopic_Client" FromRole="Client" ToRole="ClientTopic" />
-        </EntityType>
-        <EntityType Name="ClientCustomer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_ClientCustomer_Client" FromRole="ClientCustomer" ToRole="Client" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_ClientCustomer_Customer" FromRole="ClientCustomer" ToRole="Customer" />
-        </EntityType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Company" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Contact" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Login" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Site" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Info" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Ad" Relationship="Self.FK_Ad_Customer" FromRole="Customer" ToRole="Ad" />
-          <NavigationProperty Name="ClientCustomer" Relationship="Self.FK_ClientCustomer_Customer" FromRole="Customer" ToRole="ClientCustomer" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Company_Client" FromRole="Client" ToRole="Company" />
+          <NavigationProperty Name="PaymentInfo" Relationship="Self.FK_PaymentInfo_Client" FromRole="Client" ToRole="PaymentInfo" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Client" FromRole="Client" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Site" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Info" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Company_Client" FromRole="Company" ToRole="Client" />
+          <NavigationProperty Name="Deposit" Relationship="Self.FK_Deposit_Company" FromRole="Company" ToRole="Deposit" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Company" FromRole="Company" ToRole="Order" />
+          <NavigationProperty Name="UserCompany" Relationship="Self.FK_UserCompany_Company" FromRole="Company" ToRole="UserCompany" />
+        </EntityType>
+        <EntityType Name="Constraint">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientViews" Type="Int32" />
+          <Property Name="TotalViews" Type="Int32" Nullable="false" />
+          <Property Name="AgeMin" Type="Int32" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AgeMax" Type="Int32" />
+          <NavigationProperty Name="Ad" Relationship="Self.FK_Ad_Constraint" FromRole="Constraint" ToRole="Ad" />
+        </EntityType>
+        <EntityType Name="Deposit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Deposit_Company" FromRole="Deposit" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ad" Relationship="Self.FK_Ad_Order" FromRole="Order" ToRole="Ad" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Order_Company" FromRole="Order" ToRole="Company" />
         </EntityType>
         <EntityType Name="Pack">
           <Key>
@@ -455,42 +638,111 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="State" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AdPack" Relationship="Self.FK_AdPack_Pack" FromRole="Pack" ToRole="AdPack" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Pack_Client" FromRole="Pack" ToRole="Client" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Pack_User" FromRole="Pack" ToRole="User" />
+        </EntityType>
+        <EntityType Name="PaymentInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CardNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_PaymentInfo_Client" FromRole="PaymentInfo" ToRole="Client" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Text" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Answer" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Variants" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Variants" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AdId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Ad" Relationship="Self.FK_Question_Ad" FromRole="Question" ToRole="Ad" />
         </EntityType>
-        <Association Name="FK_Ad_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Topic1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AdTopic" Relationship="Self.FK_AdTopic_Topic" FromRole="Topic" ToRole="AdTopic" />
+          <NavigationProperty Name="UserTopic" Relationship="Self.FK_UserTopic_Topic" FromRole="Topic" ToRole="UserTopic" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Money" Type="Double" Nullable="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="TotalMoney" Type="Double" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AdUser" Relationship="Self.FK_Aduser_User" FromRole="User" ToRole="AdUser" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_User_Client" FromRole="User" ToRole="Client" />
+          <NavigationProperty Name="Pack" Relationship="Self.FK_Pack_User" FromRole="User" ToRole="Pack" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_User_User" FromRole="User" ToRole="User1" />
+          <NavigationProperty Name="User2" Relationship="Self.FK_User_User" FromRole="User1" ToRole="User" />
+          <NavigationProperty Name="UserCompany" Relationship="Self.FK_UserCompany_User" FromRole="User" ToRole="UserCompany" />
+          <NavigationProperty Name="UserTopic" Relationship="Self.FK_UserTopic_User" FromRole="User" ToRole="UserTopic" />
+          <NavigationProperty Name="Widthraw" Relationship="Self.FK_Widthraw_User" FromRole="User" ToRole="Widthraw" />
+        </EntityType>
+        <EntityType Name="UserCompany">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_UserCompany_Company" FromRole="UserCompany" ToRole="Company" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserCompany_User" FromRole="UserCompany" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserTopic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="TopicID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Topic" Relationship="Self.FK_UserTopic_Topic" FromRole="UserTopic" ToRole="Topic" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserTopic_User" FromRole="UserTopic" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Widthraw">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Double" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Widthraw_User" FromRole="Widthraw" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Ad_Constraint">
+          <End Role="Constraint" Type="Self.Constraint" Multiplicity="1" />
           <End Role="Ad" Type="Self.Ad" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
+            <Principal Role="Constraint">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Ad">
-              <PropertyRef Name="CustomerId" />
+              <PropertyRef Name="ConstraintId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AdClient_Ad">
-          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
-          <End Role="AdClient" Type="Self.AdClient" Multiplicity="*" />
+        <Association Name="FK_Ad_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Ad" Type="Self.Ad" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Ad">
+            <Principal Role="Order">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AdClient">
-              <PropertyRef Name="AdID" />
+            <Dependent Role="Ad">
+              <PropertyRef Name="OrderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -506,6 +758,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AdTopic_Ad">
+          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
+          <End Role="AdTopic" Type="Self.AdTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdTopic">
+              <PropertyRef Name="AdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdUser_Ad">
+          <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
+          <End Role="AdUser" Type="Self.AdUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdUser">
+              <PropertyRef Name="AdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Question_Ad">
           <End Role="Ad" Type="Self.Ad" Multiplicity="1" />
           <End Role="Question" Type="Self.Question" Multiplicity="*" />
@@ -515,18 +791,6 @@
             </Principal>
             <Dependent Role="Question">
               <PropertyRef Name="AdId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AdClient_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="AdClient" Type="Self.AdClient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AdClient">
-              <PropertyRef Name="ClientID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -542,240 +806,295 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientCustomer_Client">
+        <Association Name="FK_AdTopic_Topic">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="1" />
+          <End Role="AdTopic" Type="Self.AdTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdTopic">
+              <PropertyRef Name="TopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aduser_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="AdUser" Type="Self.AdUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdUser">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="ClientCustomer" Type="Self.ClientCustomer" Multiplicity="*" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ClientCustomer">
+            <Dependent Role="Company">
               <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pack_Client">
+        <Association Name="FK_PaymentInfo_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Pack" Type="Self.Pack" Multiplicity="*" />
+          <End Role="PaymentInfo" Type="Self.PaymentInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PaymentInfo">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deposit_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Deposit" Type="Self.Deposit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deposit">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCompany_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="UserCompany" Type="Self.UserCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserCompany">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pack_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Pack" Type="Self.Pack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Pack">
-              <PropertyRef Name="ClientId" />
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientCustomer_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="ClientCustomer" Type="Self.ClientCustomer" Multiplicity="*" />
+        <Association Name="FK_UserTopic_Topic">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="1" />
+          <End Role="UserTopic" Type="Self.UserTopic" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
+            <Principal Role="Topic">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ClientCustomer">
-              <PropertyRef Name="CustomerId" />
+            <Dependent Role="UserTopic">
+              <PropertyRef Name="TopicID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ADSDBEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User1" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCompany_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserCompany" Type="Self.UserCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserCompany">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTopic_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserTopic" Type="Self.UserTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserTopic">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Widthraw_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Widthraw" Type="Self.Widthraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Widthraw">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ADSDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Ad" EntityType="Self.Ad" />
-          <EntitySet Name="AdClient" EntityType="Self.AdClient" />
           <EntitySet Name="AdPack" EntityType="Self.AdPack" />
+          <EntitySet Name="AdTopic" EntityType="Self.AdTopic" />
+          <EntitySet Name="AdUser" EntityType="Self.AdUser" />
           <EntitySet Name="Client" EntityType="Self.Client" />
-          <EntitySet Name="ClientCustomer" EntityType="Self.ClientCustomer" />
-          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Company" EntityType="Self.Company" />
+          <EntitySet Name="Constraint" EntityType="Self.Constraint" />
+          <EntitySet Name="Deposit" EntityType="Self.Deposit" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="Pack" EntityType="Self.Pack" />
+          <EntitySet Name="PaymentInfo" EntityType="Self.PaymentInfo" />
           <EntitySet Name="Question" EntityType="Self.Question" />
-          <AssociationSet Name="FK_Ad_Customer" Association="Self.FK_Ad_Customer">
-            <End Role="Customer" EntitySet="Customer" />
+          <EntitySet Name="Topic" EntityType="Self.Topic" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="UserCompany" EntityType="Self.UserCompany" />
+          <EntitySet Name="UserTopic" EntityType="Self.UserTopic" />
+          <EntitySet Name="Widthraw" EntityType="Self.Widthraw" />
+          <AssociationSet Name="FK_Ad_Constraint" Association="Self.FK_Ad_Constraint">
+            <End Role="Constraint" EntitySet="Constraint" />
             <End Role="Ad" EntitySet="Ad" />
           </AssociationSet>
-          <AssociationSet Name="FK_AdClient_Ad" Association="Self.FK_AdClient_Ad">
+          <AssociationSet Name="FK_Ad_Order" Association="Self.FK_Ad_Order">
+            <End Role="Order" EntitySet="Order" />
             <End Role="Ad" EntitySet="Ad" />
-            <End Role="AdClient" EntitySet="AdClient" />
           </AssociationSet>
           <AssociationSet Name="FK_AdPack_Ad" Association="Self.FK_AdPack_Ad">
             <End Role="Ad" EntitySet="Ad" />
             <End Role="AdPack" EntitySet="AdPack" />
           </AssociationSet>
+          <AssociationSet Name="FK_AdTopic_Ad" Association="Self.FK_AdTopic_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="AdTopic" EntitySet="AdTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdUser_Ad" Association="Self.FK_AdUser_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="AdUser" EntitySet="AdUser" />
+          </AssociationSet>
           <AssociationSet Name="FK_Question_Ad" Association="Self.FK_Question_Ad">
             <End Role="Ad" EntitySet="Ad" />
             <End Role="Question" EntitySet="Question" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AdClient_Client" Association="Self.FK_AdClient_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="AdClient" EntitySet="AdClient" />
           </AssociationSet>
           <AssociationSet Name="FK_AdPack_Pack" Association="Self.FK_AdPack_Pack">
             <End Role="Pack" EntitySet="Pack" />
             <End Role="AdPack" EntitySet="AdPack" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientCustomer_Client" Association="Self.FK_ClientCustomer_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="ClientCustomer" EntitySet="ClientCustomer" />
+          <AssociationSet Name="FK_AdTopic_Topic" Association="Self.FK_AdTopic_Topic">
+            <End Role="Topic" EntitySet="Topic" />
+            <End Role="AdTopic" EntitySet="AdTopic" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pack_Client" Association="Self.FK_Pack_Client">
+          <AssociationSet Name="FK_Aduser_User" Association="Self.FK_Aduser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="AdUser" EntitySet="AdUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Client" Association="Self.FK_Company_Client">
             <End Role="Client" EntitySet="Client" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentInfo_Client" Association="Self.FK_PaymentInfo_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="PaymentInfo" EntitySet="PaymentInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Client" Association="Self.FK_User_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deposit_Company" Association="Self.FK_Deposit_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Deposit" EntitySet="Deposit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Company" Association="Self.FK_Order_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCompany_Company" Association="Self.FK_UserCompany_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="UserCompany" EntitySet="UserCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pack_User" Association="Self.FK_Pack_User">
+            <End Role="User" EntitySet="User" />
             <End Role="Pack" EntitySet="Pack" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientCustomer_Customer" Association="Self.FK_ClientCustomer_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="ClientCustomer" EntitySet="ClientCustomer" />
-          </AssociationSet>
-          <EntitySet Name="AdTopic" EntityType="ADSDBModel.AdTopic" />
-          <EntitySet Name="ClientTopic" EntityType="ADSDBModel.ClientTopic" />
-          <EntitySet Name="Constraint" EntityType="ADSDBModel.Constraint" />
-          <EntitySet Name="Topic" EntityType="ADSDBModel.Topic" />
-          <AssociationSet Name="FK_Ad_Constraint" Association="ADSDBModel.FK_Ad_Constraint">
-            <End Role="Constraint" EntitySet="Constraint" />
-            <End Role="Ad" EntitySet="Ad" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AdTopic_Ad" Association="ADSDBModel.FK_AdTopic_Ad">
-            <End Role="Ad" EntitySet="Ad" />
-            <End Role="AdTopic" EntitySet="AdTopic" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AdTopic_Topic" Association="ADSDBModel.FK_AdTopic_Topic">
+          <AssociationSet Name="FK_UserTopic_Topic" Association="Self.FK_UserTopic_Topic">
             <End Role="Topic" EntitySet="Topic" />
-            <End Role="AdTopic" EntitySet="AdTopic" />
+            <End Role="UserTopic" EntitySet="UserTopic" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientTopic_Client" Association="ADSDBModel.FK_ClientTopic_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="ClientTopic" EntitySet="ClientTopic" />
+          <AssociationSet Name="FK_User_User" Association="Self.FK_User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="User1" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientTopic_Topic" Association="ADSDBModel.FK_ClientTopic_Topic">
-            <End Role="Topic" EntitySet="Topic" />
-            <End Role="ClientTopic" EntitySet="ClientTopic" />
+          <AssociationSet Name="FK_UserCompany_User" Association="Self.FK_UserCompany_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserCompany" EntitySet="UserCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTopic_User" Association="Self.FK_UserTopic_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserTopic" EntitySet="UserTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Widthraw_User" Association="Self.FK_Widthraw_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Widthraw" EntitySet="Widthraw" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="AdTopic">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AdID" Type="Int32" Nullable="false" />
-          <Property Name="TopicID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Ad" Relationship="ADSDBModel.FK_AdTopic_Ad" FromRole="AdTopic" ToRole="Ad" />
-          <NavigationProperty Name="Topic" Relationship="ADSDBModel.FK_AdTopic_Topic" FromRole="AdTopic" ToRole="Topic" />
-        </EntityType>
-        <EntityType Name="ClientTopic">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientID" Type="Int32" Nullable="false" />
-          <Property Name="TopicID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="ADSDBModel.FK_ClientTopic_Client" FromRole="ClientTopic" ToRole="Client" />
-          <NavigationProperty Name="Topic" Relationship="ADSDBModel.FK_ClientTopic_Topic" FromRole="ClientTopic" ToRole="Topic" />
-        </EntityType>
-        <EntityType Name="Constraint">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientViews" Type="Int32" />
-          <Property Name="TotalViews" Type="Int32" Nullable="false" />
-          <Property Name="AgeMin" Type="Int32" />
-          <Property Name="Male" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="AgeMax" Type="Int32" />
-          <NavigationProperty Name="Ad" Relationship="ADSDBModel.FK_Ad_Constraint" FromRole="Constraint" ToRole="Ad" />
-        </EntityType>
-        <EntityType Name="Topic">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Topic1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AdTopic" Relationship="ADSDBModel.FK_AdTopic_Topic" FromRole="Topic" ToRole="AdTopic" />
-          <NavigationProperty Name="ClientTopic" Relationship="ADSDBModel.FK_ClientTopic_Topic" FromRole="Topic" ToRole="ClientTopic" />
-        </EntityType>
-        <Association Name="FK_Ad_Constraint">
-          <End Type="ADSDBModel.Constraint" Role="Constraint" Multiplicity="1" />
-          <End Type="ADSDBModel.Ad" Role="Ad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Constraint">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Ad">
-              <PropertyRef Name="ConstraintId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AdTopic_Ad">
-          <End Type="ADSDBModel.Ad" Role="Ad" Multiplicity="1" />
-          <End Type="ADSDBModel.AdTopic" Role="AdTopic" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ad">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AdTopic">
-              <PropertyRef Name="AdID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AdTopic_Topic">
-          <End Type="ADSDBModel.Topic" Role="Topic" Multiplicity="1" />
-          <End Type="ADSDBModel.AdTopic" Role="AdTopic" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Topic">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AdTopic">
-              <PropertyRef Name="TopicID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClientTopic_Client">
-          <End Type="ADSDBModel.Client" Role="Client" Multiplicity="1" />
-          <End Type="ADSDBModel.ClientTopic" Role="ClientTopic" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClientTopic">
-              <PropertyRef Name="ClientID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClientTopic_Topic">
-          <End Type="ADSDBModel.Topic" Role="Topic" Multiplicity="1" />
-          <End Type="ADSDBModel.ClientTopic" Role="ClientTopic" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Topic">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClientTopic">
-              <PropertyRef Name="TopicID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ADSDBModelStoreContainer" CdmEntityContainer="ADSDBEntities">
+        <EntityContainerMapping StorageEntityContainer="ADSDBModelStoreContainer" CdmEntityContainer="ADSDBEntities1">
           <EntitySetMapping Name="Ad">
             <EntityTypeMapping TypeName="ADSDBModel.Ad">
               <MappingFragment StoreEntitySet="Ad">
-                <ScalarProperty Name="MediaFileLink" ColumnName="MediaFileLink" />
-                <ScalarProperty Name="ConstraintId" ColumnName="ConstraintId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Topic" ColumnName="Topic" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="Views" ColumnName="Views" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AdClient">
-            <EntityTypeMapping TypeName="ADSDBModel.AdClient">
-              <MappingFragment StoreEntitySet="AdClient">
-                <ScalarProperty Name="Views" ColumnName="Views" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AdID" ColumnName="AdID" />
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ConstraintId" ColumnName="ConstraintId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="MediaFileLink" ColumnName="MediaFileLink" />
+                <ScalarProperty Name="WebLink" ColumnName="WebLink" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -788,42 +1107,75 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Client">
-            <EntityTypeMapping TypeName="ADSDBModel.Client">
-              <MappingFragment StoreEntitySet="Client">
+          <EntitySetMapping Name="AdTopic">
+            <EntityTypeMapping TypeName="ADSDBModel.AdTopic">
+              <MappingFragment StoreEntitySet="AdTopic">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="Bill" ColumnName="Bill" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="AdID" ColumnName="AdID" />
+                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdUser">
+            <EntityTypeMapping TypeName="ADSDBModel.AdUser">
+              <MappingFragment StoreEntitySet="AdUser">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AdID" ColumnName="AdID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Views" ColumnName="Views" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ClientCustomer">
-            <EntityTypeMapping TypeName="ADSDBModel.ClientCustomer">
-              <MappingFragment StoreEntitySet="ClientCustomer">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="ADSDBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customer">
-            <EntityTypeMapping TypeName="ADSDBModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Company" ColumnName="Company" />
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Company">
+            <EntityTypeMapping TypeName="ADSDBModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
                 <ScalarProperty Name="Site" ColumnName="Site" />
                 <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Constraint">
+            <EntityTypeMapping TypeName="ADSDBModel.Constraint">
+              <MappingFragment StoreEntitySet="Constraint">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClientViews" ColumnName="ClientViews" />
+                <ScalarProperty Name="TotalViews" ColumnName="TotalViews" />
+                <ScalarProperty Name="AgeMin" ColumnName="AgeMin" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="AgeMax" ColumnName="AgeMax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deposit">
+            <EntityTypeMapping TypeName="ADSDBModel.Deposit">
+              <MappingFragment StoreEntitySet="Deposit">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="ADSDBModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -832,6 +1184,15 @@
               <MappingFragment StoreEntitySet="Pack">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentInfo">
+            <EntityTypeMapping TypeName="ADSDBModel.PaymentInfo">
+              <MappingFragment StoreEntitySet="PaymentInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -847,41 +1208,53 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AdTopic">
-            <EntityTypeMapping TypeName="ADSDBModel.AdTopic">
-              <MappingFragment StoreEntitySet="AdTopic">
-                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
-                <ScalarProperty Name="AdID" ColumnName="AdID" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ClientTopic">
-            <EntityTypeMapping TypeName="ADSDBModel.ClientTopic">
-              <MappingFragment StoreEntitySet="ClientTopic">
-                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Constraint">
-            <EntityTypeMapping TypeName="ADSDBModel.Constraint">
-              <MappingFragment StoreEntitySet="Constraint">
-                <ScalarProperty Name="AgeMax" ColumnName="AgeMax" />
-                <ScalarProperty Name="Male" ColumnName="Male" />
-                <ScalarProperty Name="AgeMin" ColumnName="AgeMin" />
-                <ScalarProperty Name="TotalViews" ColumnName="TotalViews" />
-                <ScalarProperty Name="ClientViews" ColumnName="ClientViews" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Topic">
             <EntityTypeMapping TypeName="ADSDBModel.Topic">
               <MappingFragment StoreEntitySet="Topic">
-                <ScalarProperty Name="Topic1" ColumnName="Topic" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Topic1" ColumnName="Topic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="ADSDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserCompany">
+            <EntityTypeMapping TypeName="ADSDBModel.UserCompany">
+              <MappingFragment StoreEntitySet="UserCompany">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTopic">
+            <EntityTypeMapping TypeName="ADSDBModel.UserTopic">
+              <MappingFragment StoreEntitySet="UserTopic">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Widthraw">
+            <EntityTypeMapping TypeName="ADSDBModel.Widthraw">
+              <MappingFragment StoreEntitySet="Widthraw">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
