@@ -25,7 +25,6 @@ namespace AdLibrary
     
         public int Id { get; set; }
         public string Type { get; set; }
-        public string Topic { get; set; }
         public double Cost { get; set; }
         public int Views { get; set; }
         public int ConstraintId { get; set; }

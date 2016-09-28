@@ -24,10 +24,8 @@ namespace AdLibrary
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Contact { get; set; }
         public string Site { get; set; }
         public string Info { get; set; }
-        public int ClientId { get; set; }
     
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

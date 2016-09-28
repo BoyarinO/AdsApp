@@ -33,7 +33,6 @@ namespace AdLibrary
         public int Views { get; set; }
         public double TotalMoney { get; set; }
         public int ParentId { get; set; }
-        public int ClientId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdUser> AdUser { get; set; }

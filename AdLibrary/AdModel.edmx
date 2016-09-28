@@ -11,7 +11,6 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Topic" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Cost" Type="float" Nullable="false" />
           <Property Name="Views" Type="int" Nullable="false" />
           <Property Name="ConstraintId" Type="int" Nullable="false" />
@@ -60,10 +59,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Contact" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Site" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Info" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ClientId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Constraint">
           <Key>
@@ -137,7 +134,6 @@
           <Property Name="Views" Type="int" Nullable="false" />
           <Property Name="TotalMoney" Type="float" Nullable="false" />
           <Property Name="ParentId" Type="int" Nullable="false" />
-          <Property Name="ClientId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserCompany">
           <Key>
@@ -261,13 +257,13 @@
         </Association>
         <Association Name="FK_Company_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Company">
-              <PropertyRef Name="ClientId" />
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -333,13 +329,13 @@
         </Association>
         <Association Name="FK_User_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="User">
-              <PropertyRef Name="ClientId" />
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -528,7 +524,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Topic" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Cost" Type="Double" Nullable="false" />
           <Property Name="Views" Type="Int32" Nullable="false" />
           <Property Name="ConstraintId" Type="Int32" Nullable="false" />
@@ -592,10 +587,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Site" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Info" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClientId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Company_Client" FromRole="Company" ToRole="Client" />
           <NavigationProperty Name="Deposit" Relationship="Self.FK_Deposit_Company" FromRole="Company" ToRole="Deposit" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_Company" FromRole="Company" ToRole="Order" />
@@ -683,7 +676,6 @@
           <Property Name="Views" Type="Int32" Nullable="false" />
           <Property Name="TotalMoney" Type="Double" Nullable="false" />
           <Property Name="ParentId" Type="Int32" Nullable="false" />
-          <Property Name="ClientId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AdUser" Relationship="Self.FK_Aduser_User" FromRole="User" ToRole="AdUser" />
           <NavigationProperty Name="Client" Relationship="Self.FK_User_Client" FromRole="User" ToRole="Client" />
           <NavigationProperty Name="Pack" Relationship="Self.FK_Pack_User" FromRole="User" ToRole="Pack" />
@@ -832,13 +824,13 @@
         </Association>
         <Association Name="FK_Company_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Company">
-              <PropertyRef Name="ClientId" />
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -856,13 +848,13 @@
         </Association>
         <Association Name="FK_User_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="User">
-              <PropertyRef Name="ClientId" />
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -974,7 +966,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ADSDBEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ADSDBEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Ad" EntityType="Self.Ad" />
           <EntitySet Name="AdPack" EntityType="Self.AdPack" />
           <EntitySet Name="AdTopic" EntityType="Self.AdTopic" />
@@ -1082,13 +1074,12 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ADSDBModelStoreContainer" CdmEntityContainer="ADSDBEntities1">
+        <EntityContainerMapping StorageEntityContainer="ADSDBModelStoreContainer" CdmEntityContainer="ADSDBEntities2">
           <EntitySetMapping Name="Ad">
             <EntityTypeMapping TypeName="ADSDBModel.Ad">
               <MappingFragment StoreEntitySet="Ad">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Topic" ColumnName="Topic" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="Views" ColumnName="Views" />
                 <ScalarProperty Name="ConstraintId" ColumnName="ConstraintId" />
@@ -1142,10 +1133,8 @@
               <MappingFragment StoreEntitySet="Company">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
                 <ScalarProperty Name="Site" ColumnName="Site" />
                 <ScalarProperty Name="Info" ColumnName="Info" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1227,7 +1216,6 @@
                 <ScalarProperty Name="Views" ColumnName="Views" />
                 <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
                 <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
