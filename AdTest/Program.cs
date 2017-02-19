@@ -12,7 +12,20 @@ namespace AdTest
         static void Main(string[] args)
         {
             ADSDBEntities context = new ADSDBEntities();
-           
+
+          
+           /* context.Client.Add(
+                new Client
+                {
+                    Company= "AdCOmpany",
+                    Contact ="323139131",
+                    Email = "AdCOmpany@afm.com",
+                    Login = "AdCOmpany",
+                    Password = "1234",
+                    
+
+                }
+                );
                 context.Constraint.Add(
                     new Constraint
                     {
@@ -28,8 +41,25 @@ namespace AdTest
                     });
             
             context.SaveChanges();
-            Console.WriteLine("Done");
+            Console.WriteLine("Done");*/
 
+        }
+        internal class B
+        { // Базовый класс
+            public string gg;
+        }
+        internal class D : B
+        { // Производный класс
+            public string name;
+            public string id;
+             public D(string g,string nam,string i)
+            {
+                gg = g;
+                name = nam;
+                id = i;
+            }
+            public D()
+            { }
         }
     }
 }
